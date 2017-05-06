@@ -21,5 +21,4 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::get('/facebook', 'SocialAuthController@facebook');
 Route::get('/callback', 'SocialAuthController@callback');
 
-//Route::get('auth/{driver}', ['as' => 'socialAuth', 'uses' => 'Auth\SocialController@redirectToProvider']);
-//Route::get('auth/{driver}/callback', ['as' => 'socialAuthCallback', 'uses' => 'Auth\SocialController@handleProviderCallback']);
+Route::resource('users', 'UserController');

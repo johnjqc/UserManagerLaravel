@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading"><i class='fa fa-lock'></i> Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
@@ -62,7 +62,7 @@
 						<hr>
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<a href="{{ url('/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i>Connect with Facebook</a>
+								<a href="{{ url('/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook btn btn-social-icon btn-lg margin-half btn-facebook"></i>Connect with Facebook</a>
 							</div>
 						</div>
                     </form>

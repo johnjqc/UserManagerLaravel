@@ -19,7 +19,7 @@
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+										</span>
                                 @endif
                             </div>
                         </div>
@@ -59,6 +59,12 @@
                                 </a>
                             </div>
                         </div>
+						<hr>
+						<div class="form-group">
+							<div class="col-md-6 col-md-offset-4">
+								<a href="{{ url('/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i>Connect with Facebook</a>
+							</div>
+						</div>
                     </form>
                 </div>
             </div>

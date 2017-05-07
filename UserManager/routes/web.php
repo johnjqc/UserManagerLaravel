@@ -21,4 +21,5 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::get('/facebook', 'SocialAuthController@facebook');
 Route::get('/callback', 'SocialAuthController@callback');
 
+Route::get('/users', 'UserController@index');
 Route::resource('users', 'UserController');

@@ -4,17 +4,30 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+          @if (Session::has('message'))
+              <div class="alert alert-success">{{ Session::get('message') }}</div>
+          @endif
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                            Lista de Usuarios
+                            <div class="btn-group pull-right btn-group-xs">
+                              <a class="btn btn-default btn-block" href="/users/create">
+                                  <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+                                  Crear Nuevo Usuario
+                              </a>
+                            </div>
+                        </div>
+                  </div>
 
                 <div class="panel-body">
                     <div class="table-responsive">
                       <table class="table table-bordered table-striped">
                           <thead>
                               <tr>
-                                  <th>Name</th>
+                                  <th>Nombre</th>
                                   <th>Email</th>
-                                  <th>Date/Time Added</th>
+                                  <th>Fecha de Cracion</th>
                                   <th></th>
                               </tr>
                           </thead>
@@ -26,7 +39,7 @@
                                   <td>{{ $user->email }}</td>
                                   <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                                   <td>
-                                      <a href="/users/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
+                                      <a href="/users/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Editar</a>
                                       <form action="{{route('users.destroy', $user->id)}}" method="post">
                                         <input name="_method" type="hidden" value="DELETE" />
                                         <input name="_token" type="hidden" value="{{ csrf_token() }}" />

@@ -24,7 +24,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return View::make('user.create');
+        return View('user.create');
     }
 
     /**
@@ -36,13 +36,13 @@ class UserController extends Controller {
     public function store(Request $request) {
       $user = new User;
 
-      $user->name = Input::get('name');
-      $user->email      = Input::get('email');
-      $user->password   = Hash::make(Input::get('password'));
+      $user->name = $request->name;
+      $user->email      = $request->email;
+      $user->password   = bcrypt($request->password);
 
       $user->save();
 
-      return Redirect::to('/user');
+      return redirect('users')->with('message', 'Usuario Creado');;
     }
 
     /**
@@ -51,10 +51,8 @@ class UserController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
       $user = User::find($id);
-
       return view('user.show')->withUser($user);
     }
 
@@ -64,11 +62,9 @@ class UserController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
       $user = User::findOrFail($id);
       return view('user.edit', compact('user'));
-      // return View::make('user.edit', [ 'user' => $user ]);
     }
 
     /**
@@ -80,15 +76,15 @@ class UserController extends Controller {
      */
     public function update(Request $request, $id)
     {
-      $user = User::find($id);
+      $user = User::findOrFail($id);
 
-      $user->name = Input::get('name');
-      $user->email      = Input::get('email');
-      $user->password   = Hash::make(Input::get('password'));
+      $user->name = $request->name;
+      $user->email      = $request->email;
+      $user->password   = bcrypt($request->password);
 
       $user->save();
 
-      return Redirect::to('/users');
+      return redirect('users')->with('message', 'Usuario Actualizado');
     }
 
     /**
@@ -109,8 +105,5 @@ class UserController extends Controller {
       } catch (Exception $e) {
         return "Fatal error - ".$e->getMessage();
       }
-      // return view('user.index');
-      // return Redirect::to('/users');
-      // return redirect()->route('user.index');
     }
 }

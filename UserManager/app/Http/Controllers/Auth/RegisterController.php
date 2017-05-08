@@ -22,6 +22,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use ActivationHelper;
 
     /**
      * Where to redirect users after registration.
@@ -62,14 +63,12 @@ class RegisterController extends Controller
      * @return User
      */
     protected function create(array $data) {
-        $role = Role::where('name', '=', 'customer')->first();
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'activated' => false,
         ]);
-        $user->attachRole($role);
         $this->initiateEmailActivation($user);
         return $user;
     }

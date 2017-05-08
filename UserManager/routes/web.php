@@ -27,7 +27,7 @@ Route::group(['middleware' => 'web'], function() {
 });
 
 Route::group(['middleware' => ['auth', 'activated']], function() {
-    Route::get('/', ['as' => 'public.home',   'uses' => 'HomeController@index']);
+    Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
 });
 
 //Route::get('auth/{driver}', ['as' => 'socialAuth', 'uses' => 'Auth\SocialController@redirectToProvider']);

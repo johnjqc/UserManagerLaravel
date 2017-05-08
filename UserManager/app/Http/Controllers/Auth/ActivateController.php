@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Model\Activation;
-use App\Model\User;
+use App\User;
 use App\Utilities\ActivationHelper;
 use Auth;
 use Carbon\Carbon;
@@ -25,7 +25,7 @@ class ActivateController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware('web');
     }
 
     public static function getUserHomeRoute() {
@@ -40,9 +40,8 @@ class ActivateController extends Controller {
 
         $user           = Auth::user();
         $currentRoute   = Route::currentRouteName();
-
         $activation = Activation::where('token', $token)->get()
-            ->where('user_id', $user->id)
+            // ->where('user_id', $user->id)
             ->first();
 
         if (empty($activation)) {
@@ -51,9 +50,10 @@ class ActivateController extends Controller {
                 ->with('status', 'danger')
                 ->with('message', 'Token Invalido para activar suario');
         }
-
+        $user = User::find($activation->id);
         $user->activated = true;
         $user->save();
+        Auth::login($user);
 
         $allActivations = Activation::where('user_id', $user->id)->get();
         foreach ($allActivations as $anActivation) {
@@ -62,7 +62,7 @@ class ActivateController extends Controller {
 
         Log::info('Registered user successfully activated. ' . $currentRoute . '. ', [$user]);
 
-        return redirect()->route('login')
+        return redirect()->route('public.home')
             ->with('status', 'success')
             ->with('message', 'Usuario activado');
 

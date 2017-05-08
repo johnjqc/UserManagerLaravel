@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Model\Role;
 use Auth;
 
-class UserController extends Controller {
+class RoleController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-      $users = User::all();
-      return view('user.index', compact('users'));
+      $roles = Role::all();
+      return view('role.index', compact('roles'));
     }
 
     /**
@@ -24,7 +25,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return View('user.create');
+        return View('role.create');
     }
 
     /**
@@ -34,15 +35,14 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-      $user = new User;
+      $role = new Role;
 
-      $user->name = $request->name;
-      $user->email      = $request->email;
-      $user->password   = bcrypt($request->password);
+      $role->name = $request->name;
+      $role->description      = $request->description;
+	  
+      $role->save();
 
-      $user->save();
-
-      return redirect('users')->with('message', 'Usuario Creado');;
+      return redirect('roles')->with('message', 'Role Creado');;
     }
 
     /**
@@ -52,8 +52,8 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-      $user = User::find($id);
-      return view('user.show')->withUser($user);
+      $role = Role::find($id);
+      return view('role.show')->withRole($role);
     }
 
     /**
@@ -63,8 +63,8 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-      $user = User::findOrFail($id);
-      return view('user.edit', compact('user'));
+      $role = Role::findOrFail($id);
+      return view('role.edit', compact('role'));
     }
 
     /**
@@ -76,15 +76,14 @@ class UserController extends Controller {
      */
     public function update(Request $request, $id)
     {
-      $user = User::findOrFail($id);
+      $role = Role::findOrFail($id);
+       
+      $role->name = $request->name;
+      $role->description  = $request->description;
+       
+      $role->save();
 
-      $user->name = $request->name;
-      $user->email      = $request->email;
-      $user->password   = bcrypt($request->password);
-
-      $user->save();
-
-      return redirect('users')->with('message', 'Usuario Actualizado');
+      return redirect('roles')->with('message', 'Role Actualizado');
     }
 
     /**
@@ -95,13 +94,10 @@ class UserController extends Controller {
      */
     public function destroy($id) {
       try {
-        $currentUser = Auth::user();
-        $user        = User::findOrFail($id);
-        if ($user->id != $currentUser->id) {
-              $user->delete();
-        }
-        $users = User::all();
-        return view('user.index', compact('users'));
+        $role = Role::findOrFail($id);
+        $role->delete();
+		$roles = Role::all();
+        return view('role.index', compact('roles'));
       } catch (Exception $e) {
         return "Fatal error - ".$e->getMessage();
       }

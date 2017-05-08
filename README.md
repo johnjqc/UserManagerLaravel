@@ -1,4 +1,4 @@
-#UserManagerLaravel
+# <p align="center">UserManagerLaravel</p>
 
 
 ## About UserManagerLaravel

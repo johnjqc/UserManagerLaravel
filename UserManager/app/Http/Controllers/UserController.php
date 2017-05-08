@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Model\Role;
+use App\Model\Permission;
 use Auth;
 
 class UserController extends Controller {
@@ -24,7 +26,9 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return View('user.create');
+		$roles = Role::all();
+		$permissions = Permission::all();
+        return View('user.create', compact('roles'), compact('permissions'));
     }
 
     /**
@@ -55,7 +59,7 @@ class UserController extends Controller {
       $user = User::find($id);
       return view('user.show')->withUser($user);
     }
-
+	
     /**
      * Show the form for editing the specified resource.
      *
@@ -64,7 +68,9 @@ class UserController extends Controller {
      */
     public function edit($id) {
       $user = User::findOrFail($id);
-      return view('user.edit', compact('user'));
+	  $roles = Role::all();
+	  $permissions = Permission::all();
+      return view('user.edit', compact('user'), compact('permissions', 'roles'));
     }
 
     /**

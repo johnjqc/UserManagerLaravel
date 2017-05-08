@@ -47,7 +47,7 @@ class ActivateController extends Controller {
 
         if (empty($activation)) {
             Log::info('Registered user attempted to activate with an invalid token: ' . $currentRoute . '. ', [$user]);
-            return redirect()->route('public.home')
+            return redirect()->route('login')
                 ->with('status', 'danger')
                 ->with('message', 'Token Invalido para activar suario');
         }
@@ -62,7 +62,7 @@ class ActivateController extends Controller {
 
         Log::info('Registered user successfully activated. ' . $currentRoute . '. ', [$user]);
 
-        return redirect()->route(self::getUserHomeRoute())
+        return redirect()->route('login')
             ->with('status', 'success')
             ->with('message', 'Usuario activado');
 

@@ -3,7 +3,7 @@
 namespace App\Utilities;
 
 use App\Model\Activation;
-use App\Model\User;
+use App\User;
 use App\Utilities\SendActivationEmail;
 use Carbon\Carbon;
 

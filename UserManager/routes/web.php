@@ -11,23 +11,23 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/', function () {
+    return view('auth/login');
+});
 
 Auth::routes();
 // Route::post('login', array('uses' => 'HomeController@doLogin'));
 
-Route::get('/', 'HomeController@index')->name('index');
-Route::get('/facebook', 'SocialAuthController@facebook');
-Route::get('/callback', 'SocialAuthController@callback');
-
 Route::group(['middleware' => 'web'], function() {
-    Route::get('/activate/{token}', ['as' => 'authenticated.activate', 'uses' => 'Auth\ActivateController@activate']);
+  // Route::get('/', 'HomeController@index')->name('index');
+  Route::get('/facebook', 'SocialAuthController@facebook');
+  Route::get('/callback', 'SocialAuthController@callback');
+  Route::get('/activate/{token}', 'Auth\ActivateController@activate');
 });
 
-Route::group(['middleware' => ['auth', 'activated']], function() {
-    Route::get('/', ['as' => 'public.home',   'uses' => 'HomeController@index']);
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/home', 'HomeController@index')->name('index');
+    Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
 });
 
 Route::get('/users', 'UserController@index');

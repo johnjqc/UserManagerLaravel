@@ -11,15 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+// Route::get('/', function () {
+//     return view('auth/login');
+// });
 
 Auth::routes();
-// Route::post('login', array('uses' => 'HomeController@doLogin'));
 
 Route::group(['middleware' => 'web'], function() {
-  // Route::get('/', 'HomeController@index')->name('index');
+  Route::get('/', 'HomeController@index')->name('index');
   Route::get('/facebook', 'SocialAuthController@facebook');
   Route::get('/callback', 'SocialAuthController@callback');
   Route::get('/activate/{token}', 'Auth\ActivateController@activate');

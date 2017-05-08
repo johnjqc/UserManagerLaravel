@@ -21,7 +21,7 @@ Route::group(['middleware' => 'web'], function() {
   Route::get('/', 'HomeController@index')->name('index');
   Route::get('/facebook', 'SocialAuthController@facebook');
   Route::get('/callback', 'SocialAuthController@callback');
-  Route::get('/activate/{token}', 'Auth\ActivateController@activate');
+  Route::get('/activate/{token}', ['as' => 'authenticated.activate', 'useus' =>'Auth\ActivateController@activate']);
 });
 
 Route::group(['middleware' => ['auth']], function() {

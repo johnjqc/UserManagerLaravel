@@ -30,5 +30,5 @@ Route::group(['middleware' => ['auth', 'activated']], function() {
     Route::get('/', ['as' => 'public.home',   'uses' => 'HomeController@index']);
 });
 
-//Route::get('auth/{driver}', ['as' => 'socialAuth', 'uses' => 'Auth\SocialController@redirectToProvider']);
-//Route::get('auth/{driver}/callback', ['as' => 'socialAuthCallback', 'uses' => 'Auth\SocialController@handleProviderCallback']);
+Route::get('/users', 'UserController@index');
+Route::resource('users', 'UserController');

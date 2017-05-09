@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -72,4 +75,11 @@ class RegisterController extends Controller
         $this->initiateEmailActivation($user);
         return $user;
     }
+
+    public function register(Request $request) {
+        $this->validator($request->all())->validate();
+        $this->create($request->all());
+        return redirect()->route('login')
+            ->with('message', 'Tu usuario debe ser activado, revisa tu correo');
+   }
 }

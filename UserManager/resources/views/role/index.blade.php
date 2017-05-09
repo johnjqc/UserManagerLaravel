@@ -10,11 +10,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                   <div style="display: flex; justify-content: space-between; align-items: center;">
-                            Lista de Usuarios
+                            Lista de Roles
                             <div class="btn-group pull-right btn-group-xs">
-                              <a class="btn btn-default btn-block" href="/users/create">
+                              <a class="btn btn-default btn-block" href="/roles/create">
                                   <i class="fa fa-fw fa-user" aria-hidden="true"></i>
-                                  Crear Nuevo Usuario
+                                  Crear Nuevo Role
                               </a>
                             </div>
                         </div>
@@ -26,34 +26,27 @@
                           <thead>
                               <tr>
                                   <th>Nombre</th>
-                                  <th>Email</th>
+                                  <th>Descripcion</th>
                                   <th>Fecha de Cracion</th>
-                                  @if (Auth::user()->roles->contains('name', 'Admin'))
                                   <th></th>
-                                  <th></th>
-                                  @endif
                               </tr>
                           </thead>
 
                           <tbody>
-                              @foreach ($users as $user)
+                              @foreach ($roles as $role)
                               <tr>
-                                  <td>{{ $user->name }}</td>
-                                  <td>{{ $user->email }}</td>
-                                  <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
-                                  @if (Auth::user()->roles->contains('name', 'Admin'))
+                                  <td>{{ $role->name }}</td>
+                                  <td>{{ $role->description }}</td>
+                                  <td>{{ $role->created_at->format('F d, Y h:ia') }}</td>
                                   <td>
-                                      <a href="/users/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Editar</a>
-                                  </td>
-                                  <td>
-                                      <form action="{{route('users.destroy', $user->id)}}" method="post">
+                                      <a href="/roles/{{ $role->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Editar</a>
+                                      <form action="{{route('roles.destroy', $role->id)}}" method="post">
                                         <input name="_method" type="hidden" value="DELETE" />
                                         <input name="_token" type="hidden" value="{{ csrf_token() }}" />
                                         <button type="submit" class="btn btn-danger" > Eliminar </button>
+
                                       </form>
                                   </td>
-                                  @endif
-
                               </tr>
                               @endforeach
                           </tbody>

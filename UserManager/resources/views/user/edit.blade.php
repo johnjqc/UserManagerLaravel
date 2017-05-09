@@ -49,6 +49,25 @@
                   </div>
                 </div>
               </div>
+
+
+		  <div class="pw-change-container">
+			<div class="form-group has-feedback row">
+			  <div class="col-md-9">
+				<div class="input-group">
+				  Roles:
+				  @foreach ($roles as $role)
+				  <label class="radio-inline"><input type="radio" name="role" value="{{ $role->id }}"
+            @if($user->roles->contains('name',$role->name) ) 
+              checked
+            @endif
+            >{{ $role->name }}</label>
+				  @endforeach
+				</div>
+			  </div>
+			</div>
+            </div>
+
               <div class="panel-footer">
 
                 <div class="row">

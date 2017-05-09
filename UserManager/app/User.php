@@ -5,8 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Model\Role;
+
 class User extends Authenticatable
 {
+
   use Notifiable;
 
   /**
@@ -60,4 +63,8 @@ class User extends Authenticatable
   {
       return $this->hasMany('App\Models\Social');
   }
+
+    public function roles() {
+        return $this->belongsToMany(Role::class);
+    }
 }

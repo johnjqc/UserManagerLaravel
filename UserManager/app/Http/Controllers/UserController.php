@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\User;
+use App\User;
+use App\Model\Role;
 use Auth;
 
 class UserController extends Controller {
@@ -24,7 +25,8 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return View('user.create');
+		    $roles = Role::all();
+        return View('user.create', compact('roles'));
     }
 
     /**
@@ -35,12 +37,22 @@ class UserController extends Controller {
      */
     public function store(Request $request) {
       $user = new User;
+      $idRole = $request->role;
+      $role = Role::find($idRole);
 
       $user->name = $request->name;
       $user->email      = $request->email;
       $user->password   = bcrypt($request->password);
 
+      // $newRole = new Role(['role_id' => 'idRole', 'user_id' => $user->id]);
+      // $user->roles()->save($role);
+      // $user->roles->
+      // $user->detachAllRoles();
+      // $user->attachRole($role);
+
       $user->save();
+      $user = User::where('email', $request->email)->first();
+      $user->roles()->save($role);
 
       return redirect('users')->with('message', 'Usuario Creado');;
     }
@@ -64,7 +76,9 @@ class UserController extends Controller {
      */
     public function edit($id) {
       $user = User::findOrFail($id);
-      return view('user.edit', compact('user'));
+	    $roles = Role::all();
+
+      return view('user.edit', compact('user'), compact('roles'));
     }
 
     /**
@@ -77,12 +91,16 @@ class UserController extends Controller {
     public function update(Request $request, $id)
     {
       $user = User::findOrFail($id);
+      $idRole = $request->role;
 
       $user->name = $request->name;
       $user->email      = $request->email;
       $user->password   = bcrypt($request->password);
 
       $user->save();
+      $role = Role::find($idRole);
+      $user->roles()->detach();
+      $user->roles()->save($role);
 
       return redirect('users')->with('message', 'Usuario Actualizado');
     }

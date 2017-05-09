@@ -8,7 +8,7 @@
               <div class="alert alert-success">{{Session::get('message')}} </div>
             @endif
             <div class="panel panel-default">
-                <div class="panel-heading"><i class='fa fa-lock'></i> Login</div>
+                <div class="panel-heading" style="background-color:red;" ><img src="http://clickdelivery.com/logo.png" /></div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}

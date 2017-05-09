@@ -2,8 +2,9 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
-class Role extends Model 
+class Role extends Model
 {
 
     /**
@@ -12,8 +13,8 @@ class Role extends Model
      * @var array
      */
     protected $fillable = ['name', 'description', 'level'];
-    
+
 	public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 }

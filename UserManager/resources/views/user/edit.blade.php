@@ -49,34 +49,25 @@
                   </div>
                 </div>
               </div>
-			  
-			  
+
+
 		  <div class="pw-change-container">
 			<div class="form-group has-feedback row">
 			  <div class="col-md-9">
 				<div class="input-group">
-				  Roles: 
+				  Roles:
 				  @foreach ($roles as $role)
-				  <label class="checkbox-inline"><input type="checkbox" value="{{ $role->id }}">{{ $role->name }}</label>
+				  <label class="radio-inline"><input type="radio" name="role" value="{{ $role->id }}"
+            @if($user->roles->contains('name',$role->name) ) 
+              checked
+            @endif
+            >{{ $role->name }}</label>
 				  @endforeach
 				</div>
 			  </div>
 			</div>
             </div>
-		
-		  <div class="pw-change-container">
-			<div class="form-group has-feedback row">
-			  <div class="col-md-9">
-				<div class="input-group">
-				  Permisos: 
-				  @foreach ($permissions as $permission)
-				  <label class="checkbox-inline"><input type="checkbox" value="{{ $permission->id }}">{{ $permission->name }}</label>
-				  @endforeach
-				</div>
-			  </div>
-			</div>
-            </div>
-			
+
               <div class="panel-footer">
 
                 <div class="row">

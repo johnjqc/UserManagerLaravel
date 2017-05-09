@@ -28,7 +28,10 @@
                                   <th>Nombre</th>
                                   <th>Email</th>
                                   <th>Fecha de Cracion</th>
+                                  @if (Auth::user()->roles->contains('name', 'Admin'))
                                   <th></th>
+                                  <th></th>
+                                  @endif
                               </tr>
                           </thead>
 
@@ -38,15 +41,19 @@
                                   <td>{{ $user->name }}</td>
                                   <td>{{ $user->email }}</td>
                                   <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
+                                  @if (Auth::user()->roles->contains('name', 'Admin'))
                                   <td>
                                       <a href="/users/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Editar</a>
+                                  </td>
+                                  <td>
                                       <form action="{{route('users.destroy', $user->id)}}" method="post">
                                         <input name="_method" type="hidden" value="DELETE" />
                                         <input name="_token" type="hidden" value="{{ csrf_token() }}" />
                                         <button type="submit" class="btn btn-danger" > Eliminar </button>
-
                                       </form>
                                   </td>
+                                  @endif
+
                               </tr>
                               @endforeach
                           </tbody>

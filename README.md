@@ -20,4 +20,4 @@ Web aplication to manage user with Laravel and Mysql
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+The Laravel WebAplication is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
